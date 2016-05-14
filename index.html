@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenMax.min.js"></script>
+    <script src="../morph.js"></script>
+    <script src="../physics2d.js"></script>
+    <style>
+        body{
+            font-size: 50px;font-family: cursive;
+        }
+        #bigdiv{
+            height: 100px;
+            width: 100px;
+            background-color: red;
+        }
+        #tman, #oman{
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<div id="text">
+    <span >A</span>
+    <div id="tman">T</div>
+    <div id="oman">O</div>
+    <span>M</span>
+    <div id="bigdiv"></div>
+</div>
+
+</body>
+<script>
+
+    var tman = document.getElementById("tman"),
+            obo = document.getElementById('oman'),
+            bigdiv = document.getElementById('bigdiv');
+    var tl = new TimelineLite();
+    //TweenLite.to(bigdiv, 2, {physics2D:{velocity:300, angle:-60, acceleration:50, accelerationAngle:180}});
+
+    tl.to(tman, 0.5, {rotation: 50})//T bow
+            .to(tman, 0.5, {rotation: 0})
+            .to(oman, 0.5, {rotation: -50}) //O bow
+            .to(oman, 0.5, {rotation: 0})
+            .to(tman, 0.5, {x: 15, rotation: 20})// approach
+            .to(oman, 0.5, {x: -15, rotation: -20}, '-=.5')
+            .to(tman, 0.5, {rotation: -120, y: 10, x: 40}, '+=.5' )//throw
+            .to(oman, 2, {physics2D:{velocity:300, angle:230,  gravity: 500}}, '-=.4')
+            //.to(oman, 0.25, {y: -55, x: -105}, '-=.2')
+            .to(tman, 0.5, {rotation: 0, y:0, x: 0}, '-=1' )
+            .set(oman, {x:0, y:0, rotation: 0, autoAlpha: 0})
+            .to(oman,.5, {autoAlpha:1}, '+=1')
+</script>
+</html>
